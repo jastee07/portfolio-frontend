@@ -4,7 +4,12 @@ import router from "../router";
 
 export default function axiosSetUp() {
   // point to your API endpoint
-  axios.defaults.baseURL = "<http://127.0.0.1:8000/>";
+  
+  if(process.env.API_URL){
+      axios.defaults.baseURL = process.env.API_URL
+  } else {
+    axios.defaults.baseURL = "http://127.0.0.1:8000/";
+  }
   // Add a request interceptor
   axios.interceptors.request.use(
     function(config) {

@@ -2,8 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 
-import guardMyroute from "./guards"
-
 Vue.use(VueRouter)
 
 const routes = [
@@ -31,8 +29,7 @@ const routes = [
   {
     path:'/author',
     name:'Author',
-    component: () => import('../views/Author.vue'),
-    beforeEnter: guardMyroute
+    component: () => import('../views/Author.vue')
   }
 ]
 

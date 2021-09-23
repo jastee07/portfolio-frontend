@@ -3,7 +3,7 @@ import store from "../store"
 function guardMyroute(to, from, next)
 {
  var isAuthenticated= false;
- if(store.isAuthenticated)
+ if(store.getters.isAuthenticated)
   isAuthenticated = true;
  else
   isAuthenticated= false;
