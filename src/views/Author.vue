@@ -14,7 +14,7 @@
       </template>
     </b-sidebar>
     <div>
-      <h1>{{selectedPost.title}}</h1>
+      <tiptap/>
   
     </div>
   </div>
@@ -22,11 +22,17 @@
 
 <script>
 import axios from "axios"
+import Tiptap from '../components/Tiptap.vue'
 export default {
+  name:'Author',
+  components:{
+   Tiptap
+  },
   data: () => {
     return {
       posts:[],
-      selectedPost: {}
+      selectedPost: {},
+      editor: {}
     };
   },
   async mounted(){
