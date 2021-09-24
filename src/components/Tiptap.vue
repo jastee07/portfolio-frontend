@@ -28,7 +28,7 @@ export default {
 
   mounted() {
     this.editor = new Editor({
-      content: '<p>I’m running tiptap with Vue.js. 🎉</p>',
+      content: '<p>What do you want to write about today? 🎉</p>',
       extensions: [
         StarterKit,
       ],
@@ -38,5 +38,11 @@ export default {
   beforeDestroy() {
     this.editor.destroy()
   },
+  events: {
+    'setContent' : function(data){
+        // Your code. 
+        this.editor.setContent(data);
+    },
+  }
 }
 </script>

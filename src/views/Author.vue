@@ -41,7 +41,13 @@ export default {
   methods: {
     selectPost(index){
       this.selectedPost = this.posts[index];
+      this.editor.setContent(this.selectedPost.data)
     }
+  },
+  events:{
+    'setContent' : function(data){
+        this.$broadcast('setContent', data);
+    },
   }
 };
 </script>
