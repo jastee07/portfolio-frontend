@@ -1,6 +1,6 @@
 <template>
   <div>
-        <b-sidebar id="sidebar-no-header" aria-labelledby="sidebar-no-header-title" visible no-header shadow no-close-on-esc no-header-close>
+      <b-sidebar id="sidebar-no-header" aria-labelledby="sidebar-no-header-title" visible no-header shadow no-close-on-esc no-header-close>
       <template>
         <div class="p-3">
           <h4 id="sidebar-no-header-title">Posts</h4>
@@ -13,9 +13,14 @@
         </div>
       </template>
     </b-sidebar>
+  <div class="b-container"> 
+       <div @click="toggleTitle">
+      <b-input v-model="selectedPost.title"></b-input>
+      <div class="mt-2">Value: {{ selectedPost.title }}</div>
     <div>
-      <tiptap/>
-  
+    </div>
+      <tiptap :content="selectedPost.body" v-on:updateContent="updateContent"/>
+    </div>
     </div>
   </div>
 </template>
@@ -32,7 +37,8 @@ export default {
     return {
       posts:[],
       selectedPost: {},
-      editor: {}
+      editor: {},
+      editTitle: false
     };
   },
   async mounted(){
@@ -41,13 +47,31 @@ export default {
   methods: {
     selectPost(index){
       this.selectedPost = this.posts[index];
-      this.editor.setContent(this.selectedPost.data)
-    }
-  },
-  events:{
-    'setContent' : function(data){
-        this.$broadcast('setContent', data);
     },
+    updateContent(data){
+      this.selectedPost.body = data;
+      this.updatePost(this.selectedPost)
+    },
+    async updatePost(post){
+      if(post.slug){
+        axios.put(`/blog/posts/${post.slug}/`, post)
+          .then(response => {
+            this.selectedPost = response.data
+          })
+          .catch(error => console.log(error))
+      }
+      else{
+        axios.post("/blog/posts/", post)
+          .then(response => {
+            this.selectedPost = response.data;
+            this.posts.push(this.selectedPost)
+          }).catch(error => console.log(error))
+      }
+      
+    },
+    toggleTitle(){
+      this.editTitle = !this.editTitle
+    }
   }
 };
 </script>

@@ -1,5 +1,6 @@
 <template>
   <div v-if="editor" class="ProseMirror"> 
+    <b-button @click="onUpdate()">Save</b-button>
     <bubble-menu :editor="editor" v-if="editor" class="bubble-menu">
       <button @click="editor.chain().focus().toggleBold().run()" :class="{ 'is-active': editor.isActive('bold') }">
         bold
@@ -35,9 +36,6 @@
 <script>
 import { Editor, EditorContent, BubbleMenu, FloatingMenu } from '@tiptap/vue-2'
 import StarterKit from '@tiptap/starter-kit'
-import {
-
-} from 'tiptap-extensions'
 
 export default {
   components: {
@@ -45,7 +43,9 @@ export default {
     BubbleMenu,
     FloatingMenu
   },
-
+  props:{
+    content: String
+  },
   data() {
     return {
       editor: null,
@@ -54,7 +54,7 @@ export default {
 
   mounted() {
     this.editor = new Editor({
-      content: '<p>What do you want to write about today? 🎉</p>',
+      content: this.content,
       extensions: [
         StarterKit
       ]
@@ -64,11 +64,15 @@ export default {
   beforeDestroy() {
     this.editor.destroy()
   },
-  events: {
-    'setContent' : function(data){
-        // Your code. 
-        this.editor.setContent(data);
-    },
+  methods:{
+    onUpdate(){
+      this.$emit('updateContent', this.editor.getHTML())
+    }
+  },
+  watch:{
+    content: function(someContent){
+      this.editor.commands.setContent(someContent, true);
+    }
   }
 }
 </script>
