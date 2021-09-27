@@ -81,6 +81,7 @@ export default {
 /* Basic editor styles */
  .ProseMirror {
 	margin-top: 0.75em;
+  display:flex
 }
  .ProseMirror ul, ol {
 	padding: 0 1rem;

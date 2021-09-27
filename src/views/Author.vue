@@ -1,9 +1,13 @@
 <template>
   <div>
-      <b-sidebar id="sidebar-no-header" aria-labelledby="sidebar-no-header-title" visible no-header shadow no-close-on-esc no-header-close>
+    <div class="sidebar-container">
+    <b-sidebar id="sidebar" 
+        aria-labelledby="sidebar-title" 
+        visible no-header shadow no-close-on-esc no-header-close
+        class="sticky-top">
       <template>
         <div class="p-3">
-          <h4 id="sidebar-no-header-title">Posts</h4>
+          <h4 id="sidebar-title">Posts</h4>
           <nav class="mb-3">
             <b-nav vertical>
               <b-nav-item v-for="(post, index) in posts" 
@@ -13,14 +17,17 @@
         </div>
       </template>
     </b-sidebar>
-  <div class="b-container"> 
-       <div @click="toggleTitle">
-      <b-input v-model="selectedPost.title"></b-input>
-      <div class="mt-2">Value: {{ selectedPost.title }}</div>
-    <div>
     </div>
-      <tiptap :content="selectedPost.body" v-on:updateContent="updateContent"/>
-    </div>
+    <div class="b-container"> 
+      <b-row>
+        <b-col cols="4"/>
+        <b-col cols="7">
+          <div @click="toggleTitle">
+            <b-input v-model="selectedPost.title" ></b-input>
+          </div>
+            <tiptap :content="selectedPost.body" v-on:updateContent="updateContent"/>
+        </b-col>
+      </b-row>
     </div>
   </div>
 </template>
@@ -75,3 +82,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.sidebar-container {
+  float:left !important;
+}
+</style>
