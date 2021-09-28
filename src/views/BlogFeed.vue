@@ -1,7 +1,10 @@
 <template>
     <div>
+        
         <li v-for="post in posts" v-bind:key="post.id">
+            <router-link :to="'/' + post.slug + '/'">
             {{post.title}}
+            </router-link>
         </li>
     </div>
 </template>
@@ -16,12 +19,9 @@ export default {
                 posts: []
             };
     },
-    mounted: () => {
-        axios.get("blog/posts/")
-        .then(response => {
-            this.posts = response.data
-            })
-        .catch(error => console.log(error.response))
+    async mounted(){
+        this.posts = 
+            await axios.get("/blog/posts/").then(response => response.data)
     },
 }
 </script>

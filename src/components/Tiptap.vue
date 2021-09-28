@@ -1,6 +1,5 @@
 <template>
   <div v-if="editor" class="ProseMirror"> 
-    <b-button @click="onUpdate()">Save</b-button>
     <bubble-menu :editor="editor" v-if="editor" class="bubble-menu">
       <button @click="editor.chain().focus().toggleBold().run()" :class="{ 'is-active': editor.isActive('bold') }">
         bold

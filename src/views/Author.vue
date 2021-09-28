@@ -1,4 +1,4 @@
-<template>
+<template v-on:createPost>
   <div>
     <div class="sidebar-container">
     <b-sidebar id="sidebar" 
@@ -22,9 +22,12 @@
       <b-row>
         <b-col cols="4"/>
         <b-col cols="7">
-          <div @click="toggleTitle">
-            <b-input v-model="selectedPost.title" ></b-input>
-          </div>
+          <post-manager :post="selectedPost"/>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col cols="4"/>
+        <b-col cols="7">
             <tiptap :content="selectedPost.body" v-on:updateContent="updateContent"/>
         </b-col>
       </b-row>
@@ -35,17 +38,18 @@
 <script>
 import axios from "axios"
 import Tiptap from '../components/Tiptap.vue'
+import PostManager from '../components/PostManager.vue'
 export default {
   name:'Author',
   components:{
-   Tiptap
+   Tiptap,
+   PostManager
   },
   data: () => {
     return {
       posts:[],
       selectedPost: {},
-      editor: {},
-      editTitle: false
+      editor: {}
     };
   },
   async mounted(){
@@ -59,25 +63,17 @@ export default {
       this.selectedPost.body = data;
       this.updatePost(this.selectedPost)
     },
-    async updatePost(post){
-      if(post.slug){
-        axios.put(`/blog/posts/${post.slug}/`, post)
-          .then(response => {
-            this.selectedPost = response.data
-          })
-          .catch(error => console.log(error))
-      }
-      else{
-        axios.post("/blog/posts/", post)
-          .then(response => {
-            this.selectedPost = response.data;
-            this.posts.push(this.selectedPost)
-          }).catch(error => console.log(error))
-      }
-      
+    savePost(data){
+      this.selectedPost = data;
     },
-    toggleTitle(){
-      this.editTitle = !this.editTitle
+    createPost(){
+      var post = {
+        title: 'A new post!',
+        body: '<p>What do you want to write</p>'
+      }
+      this.selectedPost = post;
+      this.posts.push(post)
+      this.editor.commands.updateContent(post.body)
     }
   }
 };
