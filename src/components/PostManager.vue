@@ -8,7 +8,6 @@
       
     </b-row>
     <b-row>
-        <span>{{post.owner.first_name}} {{post.owner.last_name}}</span>
     </b-row>
     <b-button @click="updatePost(post)">Save Post
     </b-button>
@@ -30,7 +29,7 @@ export default {
     },
     methods:{
         async updatePost(post){
-            if(post.slug){
+            if(post.slug !== undefined){
                 axios.put(`/blog/posts/${post.slug}/`, post)
                 .then(response => {
                     this.$emit('savePost', response.data)
@@ -40,6 +39,7 @@ export default {
             else{
                 axios.post("/blog/posts/", post)
                 .then(response => {
+                    console.log(response.data)
                     this.$emit('savePost',response.data);
                 }).catch(error => console.log(error))
             }

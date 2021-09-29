@@ -1,17 +1,22 @@
 <template>
     <div>
-        
-        <li v-for="post in posts" v-bind:key="post.id">
-            <router-link :to="'/' + post.slug + '/'">
-            {{post.title}}
-            </router-link>
-        </li>
+        <b-list-group>
+            <b-list-group-item v-for="post in posts" v-bind:key="post.id">
+
+                <b-link :to="'/' + post.slug + '/'">
+                    {{post.title}}
+                </b-link>
+                <br/>
+                {{post.published_at | formatDate}}
+            </b-list-group-item>
+        </b-list-group>
     </div>
 </template>
 
 
 <script>
 import axios from 'axios'
+import moment from 'moment'
 export default {
     name: "BlogFeed",
     data: function() {
@@ -23,5 +28,10 @@ export default {
         this.posts = 
             await axios.get("/blog/posts/").then(response => response.data)
     },
+    filters: {
+        formatDate(date){
+            return moment(date).format('LL')
+        }
+    }
 }
 </script>

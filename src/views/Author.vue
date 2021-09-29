@@ -1,4 +1,4 @@
-<template v-on:createPost>
+<template v-on:createPost="createPost">
   <div>
     <div class="sidebar-container">
     <b-sidebar id="sidebar" 
@@ -22,7 +22,7 @@
       <b-row>
         <b-col cols="4"/>
         <b-col cols="7">
-          <post-manager :post="selectedPost"/>
+          <post-manager :post="selectedPost" @createPost="createPost()"/>
         </b-col>
       </b-row>
       <b-row>
@@ -53,7 +53,7 @@ export default {
     };
   },
   async mounted(){
-    this.posts = await axios.get("/blog/posts/").then(response => response.data)
+    this.posts = await axios.get("/blog/posts/?editor=True").then(response => response.data)
   },
   methods: {
     selectPost(index){
@@ -67,6 +67,7 @@ export default {
       this.selectedPost = data;
     },
     createPost(){
+      console.log("I got hit")
       var post = {
         title: 'A new post!',
         body: '<p>What do you want to write</p>'
