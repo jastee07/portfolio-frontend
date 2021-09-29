@@ -8,7 +8,7 @@ export default function axiosSetUp() {
   if(process.env.API_URL){
       axios.defaults.baseURL = process.env.API_URL
   } else {
-    axios.defaults.baseURL = "http://127.0.0.1:8000/";
+    axios.defaults.baseURL = "https://portfoliobackend-ktgmh.ondigitalocean.app/api";
   }
   // Add a request interceptor
   axios.interceptors.request.use(
