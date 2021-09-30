@@ -52,21 +52,20 @@ export default {
   },
 
   mounted() {
+    var ref = this;
     this.editor = new Editor({
       content: this.content,
       extensions: [
         StarterKit
-      ]
+      ],
+      onUpdate(){
+        ref.$emit('updateContent', this.getHTML())
+      }
     })
   },
 
   beforeDestroy() {
     this.editor.destroy()
-  },
-  methods:{
-    onUpdate(){
-      this.$emit('updateContent', this.editor.getHTML())
-    }
   },
   watch:{
     content: function(someContent){

@@ -28,7 +28,7 @@
       <b-row>
         <b-col cols="4"/>
         <b-col cols="7">
-            <tiptap :content="selectedPost.body" v-on:updateContent="updateContent"/>
+            <tiptap :content="selectedPost.body" @updateContent="updateContent"/>
         </b-col>
       </b-row>
     </div>
@@ -61,13 +61,11 @@ export default {
     },
     updateContent(data){
       this.selectedPost.body = data;
-      this.updatePost(this.selectedPost)
     },
     savePost(data){
       this.selectedPost = data;
     },
     createPost(){
-      console.log("I got hit")
       var post = {
         title: 'A new post!',
         body: '<p>What do you want to write</p>'

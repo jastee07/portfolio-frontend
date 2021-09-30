@@ -1,5 +1,6 @@
 <template>
     <div>
+        <p v-if="!posts">We're sorry. We'll post something soon</p>
         <b-list-group>
             <b-list-group-item v-for="post in posts" v-bind:key="post.id">
 
