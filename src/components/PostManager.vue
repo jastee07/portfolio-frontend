@@ -2,17 +2,20 @@
 <div>
     <b-input v-model="post.title" ></b-input>
     <div class="flex-container">
-    <b-row>
-      <b-col cols="5"><label>Published: </label><span v-if="post.published">{{post.published_at | formatDate}}</span></b-col>
+        <b-row class="flex-container">
+            Publish: <b-form-checkbox v-model="post.published"/>
+        </b-row>
+        
+    <b-row v-if="post.published">
+      <b-col cols="5"><label>Date Published: </label><span v-if="post.published">{{post.published_at | formatDate}}</span></b-col>
       <b-col cols="6"><label>Last Update: </label><span>{{post.updated_at | formatDate}}</span></b-col>
-      
-    </b-row>
+    </b-row >
     <b-row>
+        <b-button @click="updatePost(post)">Save
+        </b-button>
+        <b-button @click="createPost()">New Post
+        </b-button>
     </b-row>
-    <b-button @click="updatePost(post)">Save Post
-    </b-button>
-    <b-button @click="createPost()">New Post
-    </b-button>
     </div>
       
 

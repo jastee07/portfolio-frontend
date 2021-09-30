@@ -2,14 +2,12 @@ import axios from "axios";
 import store from "../store";
 import router from "../router";
 
+import { API_URL } from '../config.json'
+
 export default function axiosSetUp() {
   // point to your API endpoint
   
-  if(process.env.API_URL){
-      axios.defaults.baseURL = process.env.API_URL
-  } else {
-    axios.defaults.baseURL = "https://portfoliobackend-ktgmh.ondigitalocean.app/api";
-  }
+  axios.defaults.baseURL = API_URL;
   // Add a request interceptor
   axios.interceptors.request.use(
     function(config) {
