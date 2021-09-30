@@ -69,7 +69,10 @@ export default {
   },
   watch:{
     content: function(someContent){
-      this.editor.commands.setContent(someContent, true);
+      let html = this.editor.getHTML();
+      if (html !== someContent) {
+        this.editor.commands.setContent(someContent, true);
+      }
     }
   }
 }
