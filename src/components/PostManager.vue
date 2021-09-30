@@ -15,6 +15,9 @@
         </b-button>
         <b-button @click="createPost()">New Post
         </b-button>
+        <b-button @click="publish(post)">
+            Publish
+        </b-button>
     </b-row>
     </div>
       
@@ -46,6 +49,10 @@ export default {
                     this.$emit('savePost',response.data);
                 }).catch(error => console.log(error))
             }
+        },
+        async publishPost(post){
+            post.published_at = Date.now()
+            this.updatePost(post)
         },
         createPost(){
             this.$emit('createPost')

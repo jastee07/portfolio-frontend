@@ -37,8 +37,7 @@ const auth = {
             if(response.status === 200){
               commit("setRefreshToken", response.data.refresh_token);
               commit("setAccessToken", response.data.access_token);
-              dispatch("fetchUser");
-              router.push("/author");
+              dispatch("fetchUser").then(() => router.push("/author"));
             }
           }
           catch(e){

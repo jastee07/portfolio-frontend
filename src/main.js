@@ -8,10 +8,18 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import axiosSetUp from './utilities/axios'
+import { G_ANALYTICS_ID } from './config.json'
+import VueGtag from "vue-gtag"
 
 Vue.config.productionTip = false
 
 axiosSetUp();
+
+if(G_ANALYTICS_ID !== "none"){
+  Vue.use(VueGtag, {
+    config: {id: G_ANALYTICS_ID}
+  });
+}
 
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)
