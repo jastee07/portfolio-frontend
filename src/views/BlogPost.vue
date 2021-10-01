@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import BlogService from '../services/blog-service'
 export default {
     name: 'BlogPost',
     data(){
@@ -19,7 +19,7 @@ export default {
     },
     methods:{
         async loadPost(){
-            let { data } = await axios.get('/blog/posts/' + this.$route.params.slug + '/')
+            let { data } = await BlogService.getPost(this.$route.params.slug)
             this.post = data;
         }
     }

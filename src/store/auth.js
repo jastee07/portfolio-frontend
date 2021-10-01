@@ -41,7 +41,7 @@ const auth = {
             }
           }
           catch(e){
-            console.log(e);
+            return e.response.data ;
           }
         },
         refreshToken: async({ state, commit }) => {

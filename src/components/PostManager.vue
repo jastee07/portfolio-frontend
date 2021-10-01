@@ -27,7 +27,7 @@
 
 <script>
 import moment from 'moment'
-import axios from 'axios'
+import BlogService from '../services/blog-service'
 export default {
     name:'PostManager',
     props:{
@@ -36,14 +36,14 @@ export default {
     methods:{
         async updatePost(post){
             if(post.slug !== undefined){
-                axios.put(`/blog/posts/${post.slug}/`, post)
+                BlogService.updatePost(post, post.slug)
                 .then(response => {
                     this.$emit('savePost', response.data)
                 })
                 .catch(error => console.log(error))
             }
             else{
-                axios.post("/blog/posts/", post)
+                BlogService.createPost(post)
                 .then(response => {
                     console.log(response.data)
                     this.$emit('savePost',response.data);

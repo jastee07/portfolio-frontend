@@ -1,31 +1,29 @@
 import axios from "axios";
 
 
-export default class BlogService {
+class BlogService {
 
-    async getPosts(isEditor){
-        var response = await axios.get(`/blog/posts/?editor=${isEditor}`);
-        return response.data
-    }
-
-    async getPost(slug){
-        try{
-         var response = await axios.get(`blog/posts/${slug}/`)
-         return response.data
+    getPosts(isEditor){
+        if(isEditor){
+            return axios.get(`/blog/posts/?editor=${isEditor}`);
         }
-        catch(e){
-            return e.message
+        else {
+            return axios.get(`/blog/posts/`);
         }
         
     }
 
-    async updatePost(slug){
-        var response = await axios.put(`blog/posts/${slug}/`)
-        return response.data
+    getPost(slug){
+        return axios.get(`blog/posts/${slug}/`)
     }
 
-    async createPost(){
-        var response = await axios.post(`blog/posts/`)
-        return response.data
+    async updatePost(post, slug){
+        return axios.put(`blog/posts/${slug}/`, post)
+    }
+
+    async createPost(post){
+        return axios.post(`blog/posts/`, post)
     }
 }
+
+export default new BlogService();

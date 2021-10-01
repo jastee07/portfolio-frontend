@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import axios from "axios"
+import BlogService from '../services/blog-service'
 import Tiptap from '../components/Tiptap.vue'
 import PostManager from '../components/PostManager.vue'
 export default {
@@ -53,7 +53,7 @@ export default {
     };
   },
   async mounted(){
-    this.posts = await axios.get("/blog/posts/?editor=True").then(response => response.data)
+    this.posts = await BlogService.getPosts(true).then(response => response.data)
   },
   methods: {
     selectPost(index){

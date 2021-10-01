@@ -16,8 +16,9 @@
 
 
 <script>
-import axios from 'axios'
+//import axios from 'axios'
 import moment from 'moment'
+import BlogService from '../services/blog-service'
 export default {
     name: "BlogFeed",
     data: function() {
@@ -27,7 +28,8 @@ export default {
     },
     async mounted(){
         this.posts = 
-            await axios.get("/blog/posts/").then(response => response.data)
+            await BlogService.getPosts(false)
+            .then(response => response.data)
     },
     filters: {
         formatDate(date){
