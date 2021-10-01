@@ -1,4 +1,4 @@
-import axios from 'axios';
+import AuthService from '../services/auth-service';
 import router from '../router';
 const auth = {
     state: {
@@ -30,9 +30,8 @@ const auth = {
       },
       actions:{
         login: async({ dispatch, commit}, payload) => {
-          const loginUrl = "/auth/login/";
           try{
-            var response = await axios.post(loginUrl, payload)
+            var response = await AuthService.login(payload)
             
             if(response.status === 200){
               commit("setRefreshToken", response.data.refresh_token);
@@ -45,9 +44,8 @@ const auth = {
           }
         },
         refreshToken: async({ state, commit }) => {
-          const refreshUrl = "auth/token/refresh/";
           try{
-            var response = await axios.post(refreshUrl, {refresh: state.refresh_token})
+            var response = await AuthService.refreshToken({refresh: state.refresh_token})
             if(response.status === 200){
               commit("setAccessToken", response.data.access);
             }
@@ -57,9 +55,8 @@ const auth = {
           }
         },
         fetchUser: async({ commit }) => {
-          const currentUserUrl = "auth/user";
           try{
-            var response = await axios.get(currentUserUrl)
+            var response = await AuthService.fetchUser()
             if(response.status === 200){
               commit("setLoggedInUser", response.data);
             }
