@@ -17,11 +17,11 @@ class BlogService {
         return axios.get(`blog/posts/${slug}/`)
     }
 
-    async updatePost(post, slug){
+    updatePost(post, slug){
         return axios.put(`blog/posts/${slug}/`, post)
     }
 
-    async createPost(post){
+    createPost(post){
         return axios.post(`blog/posts/`, post)
     }
 }
