@@ -4,15 +4,15 @@ import axios from "axios";
 class AuthService {
 
     login(credentials){
-        axios.post('/auth/login/', credentials)
+        return axios.post('/auth/login/', credentials)
     }
 
     refreshToken(token){
-        axios.post("auth/token/refresh/", token)
+        return axios.post("auth/token/refresh/", token)
     }
 
     fetchUser(){
-        axios.get('auth/user')
+        return axios.get('auth/user')
     }
 }
 

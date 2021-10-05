@@ -1,24 +1,17 @@
 <template>
 <div>
-    <b-input v-model="post.title" ></b-input>
     <div class="flex-container">
-        <b-row class="flex-container">
-            Publish: <b-form-checkbox v-model="post.published"/>
-        </b-row>
-        
-    <b-row v-if="post.published">
-      <b-col cols="5"><label>Date Published: </label><span v-if="post.published">{{post.published_at | formatDate}}</span></b-col>
-      <b-col cols="6"><label>Last Update: </label><span>{{post.updated_at | formatDate}}</span></b-col>
-    </b-row >
     <b-row>
-        <b-button @click="updatePost(post)">Save
-        </b-button>
-        <b-button @click="createPost()">New Post
-        </b-button>
-        <b-button @click="publish(post)">
-            Publish
-        </b-button>
+        <b-col lg="4" class="pb-2"><b-button @click="updatePost(post)">Save</b-button></b-col>
+        <b-col lg="4" class="pb-2"><b-button @click="createPost()">New Post</b-button></b-col>
+        <b-col lg="4" class="pb-2"><b-button variant="success" size="sm" @click="publish(post)">Publish</b-button></b-col>
+        <b-col><b-input v-model="post.title" ></b-input></b-col>
     </b-row>
+    <b-row v-if="post.published">
+            <b-col cols="5"><label>Date Published: </label><span v-if="post.published">{{post.published_at | formatDate}}</span></b-col>
+            <b-col cols="6"><label>Last Update: </label><span>{{post.updated_at | formatDate}}</span></b-col>
+    </b-row >
+
     </div>
       
 

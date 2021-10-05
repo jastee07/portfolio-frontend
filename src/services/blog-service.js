@@ -24,6 +24,10 @@ class BlogService {
     createPost(post){
         return axios.post(`blog/posts/`, post)
     }
+
+    removePost(slug){
+        return axios.delete(`blog/posts/${slug}/`)
+    }
 }
 
 export default new BlogService();
