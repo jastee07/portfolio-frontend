@@ -4,8 +4,9 @@
         <b-list-group>
             <b-list-group-item v-for="post in posts" v-bind:key="post.id">
 
-                <b-link :to="'/' + post.slug + '/'">
-                    {{post.title}}
+                <b-link :to="'/' + post.slug + '/'" variant="dark" type="dark">
+                <h2>{{post.title}}</h2>
+
                 </b-link>
                 <br/>
                 {{post.published_at | formatDate}}
@@ -38,3 +39,10 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+a {
+    text-decoration: none;
+    color: black;
+}
+</style>
