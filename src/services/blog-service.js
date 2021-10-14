@@ -26,7 +26,7 @@ class BlogService {
     }
 
     removePost(slug){
-        return axios.delete(`blog/posts/${slug}/`)
+        return axios.delete(`blog/posts/${slug}/?editor=true`)
     }
 }
 
