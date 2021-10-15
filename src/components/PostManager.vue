@@ -2,9 +2,16 @@
 <div>
     <div class="flex-container">
     <b-row>
+        <b-modal centered
+        id="confirmationModal"
+            title="Confirm"
+            v-on:ok="deletePost()">
+            <p class="my-4">Are you sure?</p>
+        </b-modal>
         <b-col lg="4" class="pb-2"><b-button @click="updatePost(post)">Save</b-button></b-col>
         <b-col lg="4" class="pb-2"><b-button @click="createPost()">New Post</b-button></b-col>
         <b-col lg="4" class="pb-2"><b-button variant="success" size="sm" @click="publish(post)">Publish</b-button></b-col>
+        <b-col lg="4" class="pb-2"><b-button v-b-modal.confirmationModal>Delete</b-button></b-col>
         <b-col><b-input v-model="post.title" ></b-input></b-col>
     </b-row>
     <b-row v-if="post.published">
@@ -50,6 +57,9 @@ export default {
         createPost(){
             this.$emit('createPost')
         },
+        deletePost(){
+            this.$emit('deletePost')
+        }
     },
     filters:{
         formatDate(date){

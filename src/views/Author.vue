@@ -22,7 +22,9 @@
       <b-row>
         <b-col cols="4"/>
         <b-col cols="7">
-          <post-manager :post="selectedPost" @createPost="createPost()"/>
+          <post-manager :post="selectedPost" 
+                @createPost="createPost()"
+                @deletePost="deletePost()"/>
         </b-col>
       </b-row>
       <b-row>
@@ -73,6 +75,10 @@ export default {
       this.selectedPost = post;
       this.posts.push(post)
       this.editor.commands.updateContent(post.body)
+    },
+    async deletePost(){
+      await BlogService.removePost(this.selectedPost.slug);
+      this.selectedPost = {}
     }
   }
 };
