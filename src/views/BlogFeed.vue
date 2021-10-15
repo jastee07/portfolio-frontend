@@ -2,9 +2,9 @@
     <div>
         <p v-if="!posts">We're sorry. We'll post something soon</p>
         <b-list-group>
-            <b-list-group-item v-for="post in posts" v-bind:key="post.id">
+            <b-list-group-item v-for="post in published_posts" v-bind:key="post.id">
 
-                <b-link :to="'/' + post.slug + '/'" variant="dark" type="dark">
+                <b-link :to="'/' + post.slug + '/'">
                 <h2>{{post.title}}</h2>
 
                 </b-link>
@@ -35,6 +35,11 @@ export default {
     filters: {
         formatDate(date){
             return moment(date).format('LL')
+        }
+    },
+    computed: {
+        published_posts: function(){
+            return this.posts.filter(post => post.published)
         }
     }
 }
