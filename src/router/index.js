@@ -48,6 +48,7 @@ const router = new VueRouter({
 })
 
 const DEFAULT_TITLE = 'JS.net';
+// eslint-disable-next-line no-unused-vars
 router.afterEach((to, from) => {
     // Use next tick to handle router history correctly
     // see: https://github.com/vuejs/vue-router/issues/914#issuecomment-384477609
