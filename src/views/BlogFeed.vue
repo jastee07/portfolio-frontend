@@ -1,5 +1,6 @@
 <template>
     <div>
+        <nav-bar :search="search" @search="searchPosts"/>
         <p v-if="!posts">We're sorry. We'll post something soon</p>
         <b-list-group>
             <b-list-group-item v-for="post in published_posts" v-bind:key="post.id">
@@ -20,11 +21,16 @@
 //import axios from 'axios'
 import moment from 'moment'
 import BlogService from '../services/blog-service'
+import NavBar from '../components/NavBar.vue'
 export default {
     name: "BlogFeed",
+    components: {
+        NavBar
+    },
     data: function() {
             return {
-                posts: []
+                posts: [],
+                search:''
             };
     },
     async mounted(){
@@ -39,7 +45,22 @@ export default {
     },
     computed: {
         published_posts: function(){
-            return this.posts.filter(post => post.published)
+            var posts = this.posts.filter(post => post.published)
+            if(this.search != ''){
+                return posts.filter(post => {
+                    return post.title.toLowerCase().includes(this.search.toLowerCase())
+
+                })
+            }
+            else{
+                return posts
+            }
+            
+        }
+    },
+    methods:{
+        searchPosts(search){
+            this.search = search;
         }
     }
 }
