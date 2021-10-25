@@ -10,6 +10,7 @@
                             <!-- Post meta content-->
                             <div class="text-muted fst-italic mb-2">{{post.published_at | formatDate}}</div>
                             <!-- Post categories-->
+                            <p class="badge bg-secondary text-decoration-none link-light" v-for="category in post.categories" :key="category.id">{{category.name}}</p>
                         </header>
                         <!-- Preview image figure-->
                         <!-- Post content-->

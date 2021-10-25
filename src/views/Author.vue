@@ -78,6 +78,7 @@ export default {
     },
     async deletePost(){
       await BlogService.removePost(this.selectedPost.slug);
+      this.posts = this.posts.filter(post => post.slug !== this.selectedPost.slug);
       this.selectedPost = {}
     }
   }
